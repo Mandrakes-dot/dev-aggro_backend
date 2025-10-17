@@ -8,7 +8,7 @@ import { MongoId } from '../utils/types/mongo-id.type';
 
 @Injectable()
 export class UserRepository {
-  private readonly STATION_NOT_FOUND_EXCEPTION = new NotFoundException(
+  private readonly PRODUCT_NOT_FOUND_EXCEPTION = new NotFoundException(
     'User not found',
   );
   constructor(@InjectModel(User.name) private readonly model: Model<User>) {}
@@ -18,18 +18,21 @@ export class UserRepository {
   findOneByIdOrFail = (station: string) =>
     this.model
       .findOne({ name: station })
-      .orFail(this.STATION_NOT_FOUND_EXCEPTION)
+      .orFail(this.PRODUCT_NOT_FOUND_EXCEPTION)
       .exec();
 
   findOneByNameOrFail = (stationName: string) =>
     this.model
       .findOne({ name: stationName })
-      .orFail(this.STATION_NOT_FOUND_EXCEPTION)
+      .orFail(this.PRODUCT_NOT_FOUND_EXCEPTION)
       .exec();
 
   createUser = (createStationDto: CreateUserDto) =>
     this.model.create({
       name: createStationDto.name,
+      lastName: createStationDto.lastName,
+      email: createStationDto.email,
+      location: createStationDto.location,
     });
 
   updateUser = (
@@ -42,12 +45,12 @@ export class UserRepository {
         { $set: { name: updateStation.name } },
         { new: true },
       )
-      .orFail(this.STATION_NOT_FOUND_EXCEPTION)
+      .orFail(this.PRODUCT_NOT_FOUND_EXCEPTION)
       .exec();
 
   deleteStation = (id: MongoId) =>
     this.model
       .findByIdAndDelete(id)
-      .orFail(this.STATION_NOT_FOUND_EXCEPTION)
+      .orFail(this.PRODUCT_NOT_FOUND_EXCEPTION)
       .exec();
 }

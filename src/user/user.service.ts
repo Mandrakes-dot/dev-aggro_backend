@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { MinioService } from '../minio/minio.service';
 import { GetUserDto } from './dto/response/GetUserDto.dto';
 import { UpdateUserDto } from './dto/request/update-user.dto';
 import { UserDocument } from './user.schema';
@@ -10,7 +9,6 @@ import { CreateUserDto } from './dto/request/create-user.dto';
 @Injectable()
 export class UserService {
   constructor(
-    private readonly minioService: MinioService,
     private readonly userRepository: UserRepository,
     private readonly userMapper: UserMapper,
   ) {}

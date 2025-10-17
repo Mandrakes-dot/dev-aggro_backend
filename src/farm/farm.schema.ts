@@ -2,7 +2,7 @@
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 
-export type UserDocument = HydratedDocument<Farm>;
+export type FarmDocument = HydratedDocument<Farm>;
 
 @Schema({ timestamps: true })
 export class Farm {
@@ -18,8 +18,8 @@ export class Farm {
   @Prop({ required: true })
   description: string;
 
-  @Prop({ default: null })
-  isVerified: boolean | null;
+  @Prop({ default: false })
+  isVerified: boolean;
 
   @Prop({ type: [Types.ObjectId], ref: 'Product', default: [] })
   products: Types.ObjectId[];

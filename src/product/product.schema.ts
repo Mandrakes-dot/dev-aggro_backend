@@ -1,8 +1,7 @@
-//import { MinioFile, MinioFileSchema } from '../minio/minio-file.schema';
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
-export type UserDocument = HydratedDocument<Product>;
+export type ProductDocument = HydratedDocument<Product>;
 
 @Schema({ timestamps: true })
 export class Product {
@@ -17,6 +16,9 @@ export class Product {
 
   @Prop({ required: true })
   description: string;
+
+  @Prop({ type: Types.ObjectId, ref: 'Farm', required: true })
+  farm: Types.ObjectId;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
