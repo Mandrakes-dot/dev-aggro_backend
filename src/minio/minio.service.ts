@@ -12,7 +12,7 @@ export class MinioService {
   private readonly publicUrl?: string;
 
   constructor() {
-    const endPoint = process.env.MINIO_ENDPOINT;
+    const endPoint = process.env.MINIO_PRIVATE_HOST;
     const port = Number(process.env.MINIO_PORT ?? 9000);
     const useSSL = String(process.env.MINIO_USE_SSL ?? 'false') === 'true';
     const accessKey = process.env.MINIO_ACCESS_KEY;
