@@ -14,6 +14,7 @@ import { MemoryStoredFile } from 'nestjs-form-data';
 import { MinioService } from '../minio/minio.service';
 import { MinioMapper } from '../minio/minio.mapper';
 import { Types } from 'mongoose';
+import { GetDetailProductDto } from './_utils/dto/response/get-detail-product.dto';
 
 @Injectable()
 export class ProductService {
@@ -43,7 +44,7 @@ export class ProductService {
   async createProduct(
     createProductDto: CreateProductDto,
     farm: FarmDocument,
-  ): Promise<GetProductDto> {
+  ): Promise<GetDetailProductDto> {
     const productId = new Types.ObjectId();
 
     const incoming = createProductDto.pictures ?? [];
@@ -77,16 +78,6 @@ export class ProductService {
     return this.productMapper.toGetProductDto(updatedProduct);
   }
 
-  async searchProductForName(name: string): Promise<GetProductDto[]> {
-    const products = await this.productRepository.findByTypeLike(name);
-
-    if (!products || products.length === 0) {
-      throw new NotFoundException(`Aucun produit trouvé pour "${name}"`);
-    }
-
-    return this.productMapper.toGetProductsDto(products);
-  }
-
   async getLastProductCreated(): Promise<GetProductDto[]> {
     const products = await this.productRepository.getLastCreatedProducts();
 
@@ -97,7 +88,7 @@ export class ProductService {
     return this.productMapper.toGetProductsDto(products);
   }
 
-  getProductById(product: ProductDocument): GetProductDto {
+  async getProductById(product: ProductDocument): Promise<GetProductDto> {
     return this.productMapper.toGetProductDto(product);
   }
 

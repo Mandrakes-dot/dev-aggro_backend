@@ -98,4 +98,7 @@ export class MinioService {
     const key = `${prefix}${file.originalName}`;
     return this.uploadFile(file, key);
   }
+
+  getPresignedUrl = (key: string) =>
+    this.minioClient?.presignedGetObject(this.bucket, key);
 }
