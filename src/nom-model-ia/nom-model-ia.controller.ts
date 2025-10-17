@@ -9,7 +9,6 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { NomModelIaService } from './nom-model-ia.service';
 import { memoryStorage } from 'multer';
-import { extname } from 'path';
 import { ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiBody } from '@nestjs/swagger';
 
 @ApiTags('v1/agent')
@@ -19,8 +18,9 @@ export class NomModelIaController {
 
   @Post('describe-image')
   @ApiOperation({ 
-    summary: 'Description d\'image avec IA',
-    description: 'Upload une image et obtient une description détaillée générée par GPT-4o. Analyse visuelle complète avec détection d\'objets, couleurs, composition et contexte.'
+    summary: "Description d'image avec IA",
+    description:
+      "Upload une image et obtient une description détaillée générée par GPT-4o. Analyse visuelle complète avec détection d'objets, couleurs, composition et contexte.",
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
