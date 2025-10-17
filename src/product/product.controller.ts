@@ -2,10 +2,10 @@ import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { getDocumentByIdPipe } from '../utils/pipe/get-document-by-id.pipe';
 import { ProductService } from './product.service';
 import { Product, ProductDocument } from './product.schema';
-import { UpdateProductDto } from './dto/request/update-product.dto';
-import { CreateProductDto } from './dto/request/create-product.dto';
-import { FindByNameLikeDto } from './dto/request/find-by-name-like.dto';
 import { Farm, FarmDocument } from '../farm/farm.schema';
+import { CreateProductDto } from './_utils/dto/request/create-product.dto';
+import { UpdateProductDto } from '../farm/dto/request/update-product.dto';
+import { FindByNameLikeDto } from '../farm/dto/request/find-by-name-like.dto';
 
 @Controller('product')
 export class ProductController {

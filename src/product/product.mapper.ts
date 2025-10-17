@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ProductDocument } from './product.schema';
-import { GetProductDto } from './dto/response/get-product.dto';
-import { GetDetailProductDto } from './dto/response/get-detail-product.dto';
+import { GetProductDto } from './_utils/dto/response/get-product.dto';
+import { GetDetailProductDto } from './_utils/dto/response/get-detail-product.dto';
 
 @Injectable()
 export class ProductMapper {

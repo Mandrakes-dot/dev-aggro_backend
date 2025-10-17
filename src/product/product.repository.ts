@@ -3,8 +3,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { MongoId } from '../utils/types/mongo-id.type';
 import { Product, ProductDocument } from './product.schema';
-import { CreateProductDto } from './dto/request/create-product.dto';
-import { UpdateProductDto } from './dto/request/update-product.dto';
+import { CreateProductDto } from './_utils/dto/request/create-product.dto';
+import { UpdateProductDto } from '../farm/dto/request/update-product.dto';
 
 @Injectable()
 export class ProductRepository {

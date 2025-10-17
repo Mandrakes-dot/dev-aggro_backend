@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProductDto } from './dto/request/create-product.dto';
 import { ProductDocument } from './product.schema';
-import { GetProductDto } from './dto/response/get-product.dto';
-import { UpdateProductDto } from './dto/request/update-product.dto';
 import { ProductRepository } from './product.repository';
 import { ProductMapper } from './product.mapper';
 import { NotFoundException } from '@nestjs/common';
 import { FarmDocument } from '../farm/farm.schema';
+import { CreateProductDto } from './_utils/dto/request/create-product.dto';
+import { GetProductDto } from './_utils/dto/response/get-product.dto';
+import { UpdateProductDto } from '../farm/dto/request/update-product.dto';
 
 @Injectable()
 export class ProductService {
