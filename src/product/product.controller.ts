@@ -53,7 +53,7 @@ export class ProductController {
   }
 
   @ApiOperation({ summary: 'Get all product paginated' })
-  @Get('paginated')
+  @Get('paginated/total')
   getAllProductPaginated(
     @Query() getAllProductPaginatedQueryDto: GetAllProductPaginatedQueryDto,
   ) {

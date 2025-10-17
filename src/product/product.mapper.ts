@@ -26,4 +26,11 @@ export class ProductMapper {
     type: product.type,
     farm: farmName,
   });
+
+  toGetDetailProductsDto = (
+    products: ProductDocument[],
+    farmName: string,
+  ): GetDetailProductDto[] => {
+    return products.map((p) => this.toGetDetailProductDto(p, farmName));
+  };
 }

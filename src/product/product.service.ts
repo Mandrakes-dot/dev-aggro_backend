@@ -62,11 +62,13 @@ export class ProductService {
     return this.productMapper.toGetProductDto(product);
   }
 
-  getAllProductPaginated(
+  async getAllProductPaginated(
     getAllProductPaginatedQueryDto: GetAllProductPaginatedQueryDto,
   ) {
-    return this.productRepository.getAllProductPaginated(
+    const products = await this.productRepository.getAllProductPaginated(
       getAllProductPaginatedQueryDto,
     );
+
+    return this.productMapper.toGetDetailProductsDto(products, '');
   }
 }

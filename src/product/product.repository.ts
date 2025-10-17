@@ -78,14 +78,12 @@ export class ProductRepository {
           },
         },
       ];
-
-      return await this.model
-        .find(matchQuery)
-        .sort({ createdAt: -1 })
-        .skip(getAllProductPaginatedQueryDto.skip)
-        .limit(getAllProductPaginatedQueryDto.limit)
-        .lean()
-        .exec();
     }
+    return await this.model
+      .find(matchQuery)
+      .sort({ createdAt: -1 })
+      .skip(getAllProductPaginatedQueryDto.skip)
+      .limit(getAllProductPaginatedQueryDto.limit)
+      .exec();
   }
 }
