@@ -7,6 +7,7 @@ import { TestModule } from './_test/test.module';
 import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { FarmModule } from './farm/farm.module';
+import { NomModelIaModule } from './nom-model-ia/nom-model-ia.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { FarmModule } from './farm/farm.module';
     UserModule,
     ProductModule,
     FarmModule,
+    NomModelIaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
