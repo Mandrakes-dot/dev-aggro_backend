@@ -46,12 +46,15 @@ export class ProductService {
   ): Promise<GetProductDto> {
     const productId = new Types.ObjectId();
 
+    const incoming = createProductDto.pictures ?? [];
+    const files: MemoryStoredFile[] = Array.isArray(incoming)
+      ? incoming
+      : [incoming];
+
     const pictures: MinioFile[] = [];
-    if (createProductDto.pictures.length > 0) {
-      pictures.push(
-        ...(await this.uploadAttachments(createProductDto.pictures, productId)),
-      );
-      if (pictures.length < createProductDto.pictures.length)
+    if (files.length > 0) {
+      pictures.push(...(await this.uploadAttachments(files, productId)));
+      if (pictures.length < files.length)
         throw new InternalServerErrorException('Error during file upload');
     }
 

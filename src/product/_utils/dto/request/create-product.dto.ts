@@ -27,5 +27,5 @@ export class CreateProductDto {
   })
   @MaxFileSize(1e6, { each: true })
   @HasMimeType(['application/pdf', 'image/png', 'image/jpeg'], { each: true })
-  pictures: MemoryStoredFile[] = [];
+  pictures?: MemoryStoredFile[] = [];
 }
