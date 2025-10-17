@@ -1,10 +1,10 @@
 import { Body, Controller, Param, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
-import { getDocumentByIdPipe } from '../utils/pipe/get-document-by-id.pipe';
 import { User, UserDocument } from './user.schema';
 import { UpdateUserDto } from './dto/request/update-user.dto';
 import { CreateUserDto } from './dto/request/create-user.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { getDocumentByIdPipe } from '../_utils/pipe/get-document-by-id.pipe';
 
 @ApiTags('User')
 @Controller('user')

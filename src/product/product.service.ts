@@ -7,6 +7,7 @@ import { FarmDocument } from '../farm/farm.schema';
 import { CreateProductDto } from './_utils/dto/request/create-product.dto';
 import { GetProductDto } from './_utils/dto/response/get-product.dto';
 import { UpdateProductDto } from '../farm/dto/request/update-product.dto';
+import { GetAllProductPaginatedQueryDto } from './_utils/dto/request/get-all-products-paingated-query.dto';
 
 @Injectable()
 export class ProductService {
@@ -59,5 +60,13 @@ export class ProductService {
 
   getProductById(product: ProductDocument): GetProductDto {
     return this.productMapper.toGetProductDto(product);
+  }
+
+  getAllProductPaginated(
+    getAllProductPaginatedQueryDto: GetAllProductPaginatedQueryDto,
+  ) {
+    return this.productRepository.getAllProductPaginated(
+      getAllProductPaginatedQueryDto,
+    );
   }
 }

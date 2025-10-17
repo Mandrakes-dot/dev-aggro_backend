@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { getDocumentByIdPipe } from '../utils/pipe/get-document-by-id.pipe';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product, ProductDocument } from './product.schema';
 import { Farm, FarmDocument } from '../farm/farm.schema';
@@ -7,6 +6,8 @@ import { CreateProductDto } from './_utils/dto/request/create-product.dto';
 import { UpdateProductDto } from '../farm/dto/request/update-product.dto';
 import { FindByNameLikeDto } from '../farm/dto/request/find-by-name-like.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { GetAllProductPaginatedQueryDto } from './_utils/dto/request/get-all-products-paingated-query.dto';
+import { getDocumentByIdPipe } from '../_utils/pipe/get-document-by-id.pipe';
 
 @ApiTags('Product')
 @Controller('product')
@@ -49,5 +50,15 @@ export class ProductController {
     @Param('productId', getDocumentByIdPipe(Product)) product: ProductDocument,
   ) {
     return this.productService.getProductById(product);
+  }
+
+  @ApiOperation({ summary: 'Get all product paginated' })
+  @Get('paginated')
+  getAllProductPaginated(
+    @Query() getAllProductPaginatedQueryDto: GetAllProductPaginatedQueryDto,
+  ) {
+    return this.productService.getAllProductPaginated(
+      getAllProductPaginatedQueryDto,
+    );
   }
 }

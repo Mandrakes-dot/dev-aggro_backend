@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './user.schema';
 import { UpdateUserDto } from './dto/request/update-user.dto';
 import { CreateUserDto } from './dto/request/create-user.dto';
-import { MongoId } from '../utils/types/mongo-id.type';
+import { MongoId } from '../_utils/types/mongo-id.type';
 
 @Injectable()
 export class UserRepository {
