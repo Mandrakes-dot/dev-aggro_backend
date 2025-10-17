@@ -10,9 +10,6 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
-  const port = Number(process.env.PORT) || 3000;
-  await app.listen(port, '0.0.0.0');
-
   const config = new DocumentBuilder()
     .setTitle('DEV_AGRO API')
     .setDescription('Routes description of Dev-agro API')
@@ -28,5 +25,8 @@ async function bootstrap() {
     '/api/doc',
     apiReference({ spec: { content: document }, theme: 'moon' }),
   );
+
+  const port = Number(process.env.PORT) || 3000;
+  await app.listen(port, '0.0.0.0');
 }
 void bootstrap();
