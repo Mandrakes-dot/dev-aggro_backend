@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { FarmModule } from './farm/farm.module';
 import { NomModelIaModule } from './nom-model-ia/nom-model-ia.module';
+import { NestjsFormDataModule } from 'nestjs-form-data';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { NomModelIaModule } from './nom-model-ia/nom-model-ia.module';
     ProductModule,
     FarmModule,
     NomModelIaModule,
+    NestjsFormDataModule.config({ isGlobal: true }),
   ],
   controllers: [AppController],
   providers: [AppService],

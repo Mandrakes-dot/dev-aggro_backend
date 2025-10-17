@@ -5,9 +5,10 @@ import { Farm, FarmDocument } from '../farm/farm.schema';
 import { CreateProductDto } from './_utils/dto/request/create-product.dto';
 import { UpdateProductDto } from '../farm/dto/request/update-product.dto';
 import { FindByNameLikeDto } from '../farm/dto/request/find-by-name-like.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { GetAllProductPaginatedQueryDto } from './_utils/dto/request/get-all-products-paingated-query.dto';
 import { getDocumentByIdPipe } from '../_utils/pipe/get-document-by-id.pipe';
+import { FormDataRequest } from 'nestjs-form-data';
 
 @ApiTags('Product')
 @Controller('product')
@@ -16,6 +17,8 @@ export class ProductController {
 
   @ApiOperation({ summary: 'Create product' })
   @Post('/:farmId')
+  @ApiConsumes('multipart/form-data')
+  @FormDataRequest()
   createProduct(
     @Body() createProductDto: CreateProductDto,
     @Param('farmId', getDocumentByIdPipe(Farm)) farm: FarmDocument,
