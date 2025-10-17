@@ -6,6 +6,7 @@ import { UpdateProductDto } from '../farm/dto/request/update-product.dto';
 import { GetAllProductPaginatedQueryDto } from './_utils/dto/request/get-all-products-paingated-query.dto';
 import { MongoId } from '../_utils/types/mongo-id.type';
 import { FilterQuery, Model } from 'mongoose';
+import { MinioFile } from '../minio/minio-file.schema';
 
 @Injectable()
 export class ProductRepository {
@@ -26,12 +27,17 @@ export class ProductRepository {
       })
       .exec();
 
-  createProduct = (createProductDto: CreateProductDto, farmId: MongoId) =>
+  createProduct = (
+    createProductDto: CreateProductDto,
+    farmId: MongoId,
+    pictures: MinioFile[],
+  ) =>
     this.model.create({
       name: createProductDto.name,
       type: createProductDto.type,
       description: createProductDto.description,
       farm: farmId,
+      pictures: pictures,
     });
 
   updateProduct = (

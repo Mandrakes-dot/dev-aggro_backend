@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ProductDocument } from './product.schema';
 import { ProductRepository } from './product.repository';
 import { ProductMapper } from './product.mapper';
@@ -8,21 +8,57 @@ import { CreateProductDto } from './_utils/dto/request/create-product.dto';
 import { GetProductDto } from './_utils/dto/response/get-product.dto';
 import { UpdateProductDto } from '../farm/dto/request/update-product.dto';
 import { GetAllProductPaginatedQueryDto } from './_utils/dto/request/get-all-products-paingated-query.dto';
+import { MinioFile } from '../minio/minio-file.schema';
+import { MongoId } from '../_utils/types/mongo-id.type';
+import { MemoryStoredFile } from 'nestjs-form-data';
+import { MinioService } from '../minio/minio.service';
+import { MinioMapper } from '../minio/minio.mapper';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class ProductService {
   constructor(
     private readonly productRepository: ProductRepository,
     private readonly productMapper: ProductMapper,
+    private readonly minioService: MinioService,
+    private readonly minioMapper: MinioMapper,
   ) {}
+
+  uploadAttachments = (attachments: MemoryStoredFile[], productId: MongoId) =>
+    Promise.all(
+      attachments.map(async (attachment, index) => {
+        const itemAttachmentMinioKey = this.minioMapper.toItemAttachmentFileKey(
+          `${productId.toString()}-${index}`,
+        );
+        const attachmentFile = await this.minioService.uploadFile(
+          attachment,
+          itemAttachmentMinioKey,
+        );
+        if (!attachmentFile)
+          throw new InternalServerErrorException('Error during file upload');
+        return attachmentFile;
+      }),
+    );
 
   async createProduct(
     createProductDto: CreateProductDto,
     farm: FarmDocument,
   ): Promise<GetProductDto> {
+    const productId = new Types.ObjectId();
+
+    const pictures: MinioFile[] = [];
+    if (createProductDto.pictures.length > 0) {
+      pictures.push(
+        ...(await this.uploadAttachments(createProductDto.pictures, productId)),
+      );
+      if (pictures.length < createProductDto.pictures.length)
+        throw new InternalServerErrorException('Error during file upload');
+    }
+
     const product = await this.productRepository.createProduct(
       createProductDto,
       farm._id,
+      pictures,
     );
     return this.productMapper.toGetDetailProductDto(product, farm.name);
   }
