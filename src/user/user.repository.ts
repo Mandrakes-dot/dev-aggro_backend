@@ -8,24 +8,10 @@ import { MongoId } from '../utils/types/mongo-id.type';
 
 @Injectable()
 export class UserRepository {
-  private readonly PRODUCT_NOT_FOUND_EXCEPTION = new NotFoundException(
+  private readonly USER_NOT_FOUND_EXCEPTION = new NotFoundException(
     'User not found',
   );
   constructor(@InjectModel(User.name) private readonly model: Model<User>) {}
-
-  getAllStations = (): Promise<UserDocument[]> => this.model.find().exec();
-
-  findOneByIdOrFail = (station: string) =>
-    this.model
-      .findOne({ name: station })
-      .orFail(this.PRODUCT_NOT_FOUND_EXCEPTION)
-      .exec();
-
-  findOneByNameOrFail = (stationName: string) =>
-    this.model
-      .findOne({ name: stationName })
-      .orFail(this.PRODUCT_NOT_FOUND_EXCEPTION)
-      .exec();
 
   createUser = (createStationDto: CreateUserDto) =>
     this.model.create({
@@ -45,12 +31,12 @@ export class UserRepository {
         { $set: { name: updateStation.name } },
         { new: true },
       )
-      .orFail(this.PRODUCT_NOT_FOUND_EXCEPTION)
+      .orFail(this.USER_NOT_FOUND_EXCEPTION)
       .exec();
 
-  deleteStation = (id: MongoId) =>
+  deleteUser = (id: MongoId) =>
     this.model
       .findByIdAndDelete(id)
-      .orFail(this.PRODUCT_NOT_FOUND_EXCEPTION)
+      .orFail(this.USER_NOT_FOUND_EXCEPTION)
       .exec();
 }

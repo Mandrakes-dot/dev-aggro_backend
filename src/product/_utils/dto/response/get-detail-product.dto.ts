@@ -13,4 +13,6 @@ export class GetDetailProductDto {
   description: string;
 
   farm: string;
+
+  location: string;
 }

@@ -12,12 +12,6 @@ export class UserService {
     private readonly userRepository: UserRepository,
     private readonly userMapper: UserMapper,
   ) {}
-  /*
-  async getAllStations(): Promise<GetStationDto[]> {
-    const stations = await this.stationsRepository.getAllStations();
-    return this.stationsMapper.toGetStationsDto(stations);
-  }
-*/
 
   async createUser(createUserDto: CreateUserDto): Promise<GetUserDto> {
     const user = await this.userRepository.createUser(createUserDto);
@@ -36,9 +30,7 @@ export class UserService {
     return this.userMapper.toGetUserDto(updatedStation);
   }
 
-  /* async deleteStation(station: StationDocument) {
-    await this.stationsRepository.deleteStation(station._id);
-    await this.machinesRepository.updateOrDeleteNameStation(null, station.name);
+  async deleteUser(user: UserDocument) {
+    await this.userRepository.deleteUser(user._id);
   }
-  */
 }

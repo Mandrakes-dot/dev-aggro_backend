@@ -24,7 +24,7 @@ export class ProductRepository {
       })
       .exec();
 
-  createProduct = (createProductDto: CreateProductDto, farmId: MongoId) =>
+  createProduct = (createProductDto: CreateProductDto, farmId: string) =>
     this.model.create({
       name: createProductDto.name,
       type: createProductDto.type,
@@ -45,12 +45,16 @@ export class ProductRepository {
       .orFail(this.PRODUCT_NOT_FOUND_EXCEPTION)
       .exec();
 
-  getLastCreatedProducts = (): Promise<ProductDocument[]> =>
-    this.model
-      .find()
-      .sort({ createdAt: -1 }) // trie par date décroissante (du plus récent au plus ancien)
-      .limit(10) // limite à 10 résultats
-      .exec();
+  getLastCreatedProductsPaginated = async (page: number, limit: number) => {
+    const skip = (page - 1) * limit;
+
+    const [products, totalCount] = await Promise.all([
+      this.model.find().sort({ createdAt: -1 }).skip(skip).limit(limit).exec(),
+      this.model.countDocuments().exec(),
+    ]);
+
+    return { products, totalCount };
+  };
 
   deleteProduct = (id: MongoId) =>
     this.model

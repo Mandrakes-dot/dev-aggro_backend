@@ -1,11 +1,11 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { getDocumentByIdPipe } from '../utils/pipe/get-document-by-id.pipe';
 import { ProductService } from './product.service';
 import { Product, ProductDocument } from './product.schema';
 import { Farm, FarmDocument } from '../farm/farm.schema';
 import { CreateProductDto } from './_utils/dto/request/create-product.dto';
 import { UpdateProductDto } from '../farm/dto/request/update-product.dto';
-import { FindByNameLikeDto } from '../farm/dto/request/find-by-name-like.dto';
+import { PaginatedQueryDto } from '../utils/dto/pagination.dto';
 
 @Controller('product')
 export class ProductController {
@@ -27,14 +27,9 @@ export class ProductController {
     return this.productService.updateProduct(updateProductDto, product);
   }
 
-  @Post('search')
-  searchProductForName(@Body() name: FindByNameLikeDto) {
-    return this.productService.searchProductForName(name.name);
-  }
-
   @Get('lastproductcreated')
-  getLastProductCreated() {
-    return this.productService.getLastProductCreated();
+  getLastProductCreated(@Query() paginatedQuery: PaginatedQueryDto) {
+    return this.productService.getLastProductCreated(paginatedQuery);
   }
 
   @Get(':productId')

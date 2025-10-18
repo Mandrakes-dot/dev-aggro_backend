@@ -21,4 +21,9 @@ export class UserController {
   ) {
     return this.userService.updateUser(updateStationDto, user);
   }
+
+  @Put(':userId')
+  deleteUser(@Param('userId', getDocumentByIdPipe(User)) user: UserDocument) {
+    return this.userService.deleteUser(user);
+  }
 }
