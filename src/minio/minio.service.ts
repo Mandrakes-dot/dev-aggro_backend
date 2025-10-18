@@ -82,13 +82,17 @@ export class MinioService {
       expiresSeconds,
       {
         ...(contentType ? { 'response-content-type': contentType } : {}),
+        'response-content-disposition': 'inline',
       },
     );
+
     if (this.publicUrl) {
       const u = new URL(url);
-      const p = new URL(this.publicUrl);
+      const p = new URL(this.publicUrl.trim());
+
       u.protocol = p.protocol;
-      u.host = p.host;
+      u.hostname = p.hostname;
+      u.port = p.port || '';
       return u.toString();
     }
     return url;
