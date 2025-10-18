@@ -23,6 +23,10 @@ export class MinioMapper {
   ): Promise<GetPictureDetailDto> => ({
     key: attachment.key,
     name: attachment.fileName,
-    url: await this.minioService.getPresignedUrl(attachment.key),
+    url: await this.minioService.getUrlImage(
+      attachment.key,
+      60 * 10,
+      attachment.mimeType,
+    ),
   });
 }
