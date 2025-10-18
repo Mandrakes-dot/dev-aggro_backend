@@ -17,7 +17,6 @@ export class FarmService {
   ) {}
 
   async createFarm(createProductDto: CreateFarmDto): Promise<GetFarmDto> {
-
     const farmId = new Types.ObjectId();
 
     const incoming = createProductDto.pictures ?? [];

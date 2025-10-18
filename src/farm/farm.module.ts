@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { FarmRepository } from './farm.repository';
 import { Farm, FarmSchema } from './farm.schema';
 import { FarmMapper } from './farm.mapper';
+import { ProductModule } from '../product/product.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { FarmMapper } from './farm.mapper';
         schema: FarmSchema,
       },
     ]),
+    ProductModule,
   ],
   controllers: [FarmController],
   providers: [FarmService, FarmRepository, FarmMapper],
