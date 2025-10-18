@@ -1,6 +1,7 @@
 //import { MinioFile, MinioFileSchema } from '../minio/minio-file.schema';
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
+import { MinioFile, MinioFileSchema } from '../minio/minio-file.schema';
 
 export type FarmDocument = HydratedDocument<Farm>;
 
@@ -12,8 +13,8 @@ export class Farm {
   @Prop({ required: true })
   location: string;
 
-  // @Prop({ type: [MinioFileSchema], default: [] })
-  // pictures: MinioFile[];
+  @Prop({ type: [MinioFileSchema], default: [] })
+  pictures: MinioFile[];
 
   @Prop({ required: true })
   description: string;

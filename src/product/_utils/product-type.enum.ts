@@ -9,4 +9,5 @@ export enum ProductTypeEnum {
   LIVE_ANIMAL = 'LIVE_ANIMAL',
   MANURE = 'MANURE',
   OTHER = 'OTHER',
+  CHEESE = 'CHEESE',
 }
