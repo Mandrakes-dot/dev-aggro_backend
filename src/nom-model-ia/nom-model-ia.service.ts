@@ -23,7 +23,17 @@ export class NomModelIaService {
             content: [
               {
                 type: 'text',
-                text: 'Décris cette image en détail, en français. Sois précis et descriptif.',
+                text:
+                  'Décris cette ferme et ses produits à partir des photos envoyées. \n' +
+                  'Ton objectif est de rédiger une description attrayante et naturelle \n' +
+                  'pour une application qui met en valeur les fermes et leurs produits agricoles.\n' +
+                  '\n' +
+                  '- Utilise un ton professionnel, chaleureux et authentique.\n' +
+                  '- Mets en avant les atouts visuels : paysages, animaux, cultures, produits, etc.\n' +
+                  '- Décris les couleurs, la qualité et l’ambiance du lieu.\n' +
+                  '- Si tu reconnais un animal ou un produit, parle-en sans exagérer.\n' +
+                  '- Reste concis (5 à 8 phrases maximum) et écris en français naturel.\n' +
+                  '- N’invente pas de détails qui ne sont pas visibles sur la photo.',
               },
               {
                 type: 'image_url',
